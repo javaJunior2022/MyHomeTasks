@@ -26,10 +26,15 @@ import java.util.HashMap;
 public class RomanToInteger {
     public static void main(String[] args) {
         romanToInt ("IX");
+        romanToInt ("III");
+        romanToInt ("IV");
+        romanToInt ("XXIII");
+
+
     }
 
     public static int romanToInt(String s) {
-        int value=0;
+
         HashMap<Character, Integer> romanMap = new HashMap<>();
         romanMap.put('I',1);
         romanMap.put('V',5);
@@ -40,16 +45,26 @@ public class RomanToInteger {
         romanMap.put('M',1000);
 
         char[] romanArray=s.toCharArray();
-        int[] decimalArray=new int[romanArray.length];
-        //System.out.println(romanMap);
-        //System.out.println(romanArray);
+        int[] decimalArray=new int[romanArray.length+1];
+        int decimalSum=0;
+
         for (int i=0; i<romanArray.length;i++){
             decimalArray[i]=romanMap.get(romanArray[i]);
-            System.out.println(decimalArray[i]);
-            //System.out.println(romanMap.get(romanArray[i]));
-
         }
 
-    return value;
+        for (int i=0; i<decimalArray.length-1;i++){
+           int currentValue=decimalArray[i];
+           int nextValue=decimalArray[i+1];
+
+           if(currentValue>=nextValue){
+               decimalSum+=currentValue;
+           }else if (currentValue<nextValue){
+            decimalSum-=currentValue;
+           }
+        }
+
+        System.out.println(decimalSum);
+
+    return decimalSum;
     }
 }
